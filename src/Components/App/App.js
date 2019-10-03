@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import './App.css';
-import Robots from '../Robot/Robot';
+import  robots  from '../Robot/Robot';
 
 class App extends Component {
 
@@ -71,34 +71,52 @@ class App extends Component {
   }
 
   getRobot = () => {
-    
-      let random = Math.floor(Math.random() * (this.state.robots.length * 10) )
-      return (
-        `https://robohash.org/${random}200x200`
-      )
+
+    let random = Math.floor(Math.random() * (this.state.robots.length * 10))
+    return (
+      `https://robohash.org/${random}200x200`
+    )
   }
 
   render() {
 
-  
+
 
     return (
       <>
         <h1>RoboFriends</h1>
-    
+
         <div>
           {this.state.robots.map(item => {
             return (
-              <div className="bg-light-green dib br3 pa3 ma2 grow bw2 shadow-5">
-                <img alt="robots" src= {this.getRobot()}/>
+              <div key={item.id} className=" tc bg-light-green dib br3 pa3 ma2 grow bw2 shadow-5">
+                <img alt="robots" src={this.getRobot()} />
                 <h2>{item.name}</h2>
                 <h4>{item.username}</h4>
                 <h4>{item.email}</h4>
               </div>
-            )
+            );
 
           })}
         </div>
+
+          {/* did this one a little differently. I imported the robot object array from Robot.js and then just mapped through it */}
+          
+        {/* <div>
+          {robots.map( item => {
+            return (
+              <div key={item.id} className="tc bg-light-green dib br3 pa3 ma2 grow bw2 shadow-5">
+              <img  alt='robots' src={`https://robohash.org/${item.id}200X200`}/>  
+              <h2>{item.name}</h2>
+              <h4>{item.username}</h4>
+              <h4>{item.email}</h4>
+
+              </div>
+            )
+          })}
+        </div> */}
+
+        
 
       </>
     )
