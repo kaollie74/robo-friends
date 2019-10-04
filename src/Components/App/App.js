@@ -85,6 +85,11 @@ class App extends Component {
   handleCard = (item) => {
     console.log(`this is item`, item);
 
+    this.setState({
+      modal: !this.state.modal,
+      name: item.name,
+    })
+
 
   }
 
@@ -109,8 +114,8 @@ class App extends Component {
               <div
                 key={item.id}
                 className=" tc bg-light-green dib br3 pa3 ma2 grow bw2 shadow-5"
-                // onClick={() => this.handleCard(item)}
-                onClick = {this.openModal}
+                onClick={() => this.handleCard(item)}
+                // onClick = {this.openModal}
               >
                 <img alt="robots" src={this.getRobot()} />
                 <h2>{item.name}</h2>
@@ -123,7 +128,7 @@ class App extends Component {
         </div>
 
         <div>
-          <Modal state = {this.state} openModal={this.openModal} />
+          <Modal state = {this.state} handleCard={this.handleCard} openModal={this.openModal} />
         </div>
 
         {/* did this one a little differently. I imported the robot object array from Robot.js and then just mapped through it */}

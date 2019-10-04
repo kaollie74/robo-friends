@@ -20,8 +20,8 @@ class ModalRobot extends Component {
           open={this.props.state.modal}
           onClose={this.props.state.modal}
         >
-          <Input name='robot-name' value={this.props.state} />
-          <Button onClick={this.props.openModal}>Close</Button>
+          <Input name='robot-name' value={this.props.state.name} />
+          <Button onClick={this.props.handleCard}>Close</Button>
 
         </Modal>
       </h1>
