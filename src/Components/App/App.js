@@ -88,6 +88,9 @@ class App extends Component {
     this.setState({
       modal: !this.state.modal,
       name: item.name,
+      username: item.username,
+      email: item.email,
+
     })
 
 

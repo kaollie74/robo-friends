@@ -21,6 +21,8 @@ class ModalRobot extends Component {
           onClose={this.props.state.modal}
         >
           <Input name='robot-name' value={this.props.state.name} />
+          <Input name='username' value={this.props.state.username}/>
+          <Input name='email' value={this.props.state.email}/>
           <Button onClick={this.props.handleCard}>Close</Button>
 
         </Modal>
