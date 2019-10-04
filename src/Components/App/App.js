@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 
 import './App.css';
-import  robots  from '../Robot/Robot';
+import robots from '../Robot/Robot';
+import Modal from '../Modal/Modal';
+
 
 class App extends Component {
 
@@ -70,13 +72,20 @@ class App extends Component {
     ]
   }
 
-  getRobot = () => {
+  getRobot = (item) => {
 
     let random = Math.floor(Math.random() * (this.state.robots.length * 10))
     return (
       `https://robohash.org/${random}200x200`
     )
   }
+
+  handleCard = (item) => {
+    console.log(`this is item`, item);
+
+
+  }
+
 
   render() {
 
@@ -89,7 +98,11 @@ class App extends Component {
         <div>
           {this.state.robots.map(item => {
             return (
-              <div key={item.id} className=" tc bg-light-green dib br3 pa3 ma2 grow bw2 shadow-5">
+              <div
+                key={item.id}
+                className=" tc bg-light-green dib br3 pa3 ma2 grow bw2 shadow-5"
+                onClick={() => this.handleCard(item)}
+              >
                 <img alt="robots" src={this.getRobot()} />
                 <h2>{item.name}</h2>
                 <h4>{item.username}</h4>
@@ -97,11 +110,15 @@ class App extends Component {
               </div>
             );
 
-          })}
+          })} {/* end of this.state.robots.map */}
         </div>
 
-          {/* did this one a little differently. I imported the robot object array from Robot.js and then just mapped through it */}
-          
+        <div>
+          <Modal state = {this.state} />
+        </div>
+
+        {/* did this one a little differently. I imported the robot object array from Robot.js and then just mapped through it */}
+
         {/* <div>
           {robots.map( item => {
             return (
@@ -116,7 +133,7 @@ class App extends Component {
           })}
         </div> */}
 
-        
+
 
       </>
     )
