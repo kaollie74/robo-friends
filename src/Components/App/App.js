@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import './App.css';
 import robots from '../Robot/Robot';
 import Modal from '../Modal/Modal';
+import SearchBox from '../SearchBox/SearchBox';
 
 
 class App extends Component {
@@ -110,6 +111,8 @@ class App extends Component {
     return (
       <>
         <h1>RoboFriends</h1>
+
+        <SearchBox />
 
         <div>
           {this.state.robots.map(item => {

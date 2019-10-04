@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css';
-import { Button, Input, Modal } from 'semantic-ui-react';
+import { Button, Image, Input, Modal } from 'semantic-ui-react';
 
 
 
@@ -20,6 +20,7 @@ class ModalRobot extends Component {
           open={this.props.state.modal}
           onClose={this.props.state.modal}
         >
+          <Image />
           <Input name='robot-name' value={this.props.state.name} />
           <Input name='username' value={this.props.state.username}/>
           <Input name='email' value={this.props.state.email}/>
