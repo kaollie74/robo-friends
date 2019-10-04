@@ -1,18 +1,33 @@
 import React, { Component } from 'react';
-import { Modal } from 'semantic-ui-css';
-import 'semantic-ui-css/semantic.min.css'
+import 'semantic-ui-css/semantic.min.css';
+import { Button, Input, Modal } from 'semantic-ui-react';
 
 
-class Modal extends Component {
+
+class ModalRobot extends Component {
+
+  closeModal = () => {
+    
+    this.setState({
+      modal: !this.props.state.modal,
+    })
+  }
 
   render() {
     return (
       <h1>
-        Modal
+        <Modal
+          open={this.props.state.modal}
+          onClose={this.props.state.modal}
+        >
+          <Input name='robot-name' value={this.props.state} />
+          <Button onClick={this.props.openModal}>Close</Button>
+
+        </Modal>
       </h1>
     )
   }
 
 }
 
-export default Modal
+export default ModalRobot;
