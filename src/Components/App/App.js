@@ -10,7 +10,7 @@ import CardList from '../CardList/CardList';
 class App extends Component {
 
   state = {
-   robots: robots,
+    robots: robots,
     modal: false,
     searchfield: '',
   }
@@ -47,17 +47,37 @@ class App extends Component {
 
   onSearchChange = (event) => {
 
-   
+
 
     this.setState({
       searchfield: event.target.value,
-     
+
     })
 
 
   }
 
   filteredRobots = () => {
+
+    const blah = this.state.robots.filter(robot => {
+      return robot.name.toLowerCase().includes(this.state.searchfield.toLowerCase())
+    })
+
+    return (
+
+      blah.map(item => {
+        return (
+        <div key={item.id} className="tc bg-light-green dib br3 pa3 ma2 grow bw2 shadow-5">
+          <img alt='robots' src={`https://robohash.org/${item.id}200X200`} />
+          <h2>{item.name}</h2>
+          <h4>{item.username}</h4>
+          <h4>{item.email}</h4>
+
+        </div>
+        )
+      })
+
+    );
 
   }
 
@@ -75,12 +95,12 @@ class App extends Component {
 
         <SearchBox searchChange={this.onSearchChange} />
 
-        <CardList  robots={newRobots}/> 
+        {/* <CardList  robots={newRobots}/>  */}
 
-        <div className='tc'>
-          {/* {this.state.searchField
+        {/* <div className='tc'>
+          {this.state.searchField
             ?
-            this.state.robots
+            this.filteredRobots()
             :
             this.state.robots.map(item => {
               return (
@@ -106,15 +126,18 @@ class App extends Component {
             state={this.state}
             handleCard={this.handleCard}
             openModal={this.openModal}
-          /> */}
-        </div>
+          />
+        </div> */}
 
         {/* did this one a little differently. I imported the robot object array from Robot.js and then just mapped through it */}
-{/* 
-        <div>
-          {this.state.searchfield ?
 
-            this.state.robots :
+        {/* <div>
+          {this.state.searchfield ?
+            <div>
+              {this.filteredRobots()} 
+            </div>
+
+            :
 
             robots.map(item => {
               return (
@@ -129,7 +152,9 @@ class App extends Component {
             })
           }
         </div> */}
-
+        <div>
+          {this.filteredRobots()}
+        </div>
 
 
       </div>
