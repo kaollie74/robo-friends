@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
-import robots from '../Robot/Robot';
-import Modal from '../Modal/Modal';
-import SearchBox from '../SearchBox/SearchBox';
 import CardList from '../CardList/CardList';
+import Modal from '../Modal/Modal';
+import robots from '../Robot/Robot';
+import SearchBox from '../SearchBox/SearchBox';
+import Scroll from '../Scroll/Scroll';
 import './App.css';
-
-
-
-
-
 
 
 class App extends Component {
@@ -19,8 +15,7 @@ class App extends Component {
     searchfield: '',
   }
 
-  componentDidMount () {
-
+  componentDidMount() {
     this.getRobot();
   }
 
@@ -29,20 +24,18 @@ class App extends Component {
     // let random = Math.floor(Math.random() * (this.state.robots.length * 10))
     //  let robotArray = `https://robohash.org/${random}200x200`
 
-     fetch( 'https://jsonplaceholder.typicode.com/users')
-     .then(response => 
-       response.json())
-       .then(json =>  {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then(response => {
+        return response.json()
+      })
+      .then(users => {
         this.setState({
-          robots: json,
+          robots: users
         })
-     })
-
-
-     
-    
-    
-
+      })
+      .catch(error => {
+        console.log(`Error fetching from api`, error);
+      })
 
   }
 
@@ -90,13 +83,13 @@ class App extends Component {
 
       blah.map(item => {
         return (
-        <div key={item.id} className="tc bg-light-blue dib br3 pa3 ma2 grow bw2 shadow-5">
-          <img alt='robots' src={`https://robohash.org/${item.id}200X200`} />
-          <h2>{item.name}</h2>
-          <h4>{item.username}</h4>
-          <h4>{item.email}</h4>
+          <div key={item.id} className="tc bg-light-blue dib br3 pa3 ma2 grow bw2 shadow-5">
+            <img alt='robots' src={`https://robohash.org/${item.id}200X200`} />
+            <h2>{item.name}</h2>
+            <h4>{item.username}</h4>
+            <h4>{item.email}</h4>
 
-        </div>
+          </div>
         )
       })
 
@@ -106,7 +99,7 @@ class App extends Component {
 
 
   render() {
-  
+
     let newRobots = this.state.robots.filter(robot => {
       return robot.name.toLowerCase().includes(this.state.searchfield.toLowerCase())
     })
@@ -115,8 +108,9 @@ class App extends Component {
     return (
       < div className='tc' className='App'>
         <h1 className='f1'>RoboFriends</h1>
-
-        <SearchBox searchChange={this.onSearchChange} />
+        <Scroll>
+          <SearchBox searchChange={this.onSearchChange} />
+        </Scroll>
 
         {/* <CardList  robots={newRobots}/>  */}
 
