@@ -108,9 +108,9 @@ class App extends Component {
     return (
       < div className='tc' className='App'>
         <h1 className='f1'>RoboFriends</h1>
-        <Scroll>
-          <SearchBox searchChange={this.onSearchChange} />
-        </Scroll>
+
+        <SearchBox searchChange={this.onSearchChange} />
+
 
         {/* <CardList  robots={newRobots}/>  */}
 
@@ -170,7 +170,9 @@ class App extends Component {
           }
         </div> */}
         <div>
-          {this.filteredRobots()}
+          <Scroll>
+            {this.filteredRobots()}
+          </Scroll>
         </div>
 
 
