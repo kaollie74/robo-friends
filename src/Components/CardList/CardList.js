@@ -7,7 +7,7 @@ class CardList extends Component {
           {this.props.robots.map( item => {
             return (
 
-              <div key={item.id} className="tc bg-light-green dib br3 pa3 ma2 grow bw2 shadow-5">
+              <div key={item.id} className="tc bg-light-blue dib br3 pa3 ma2 grow bw2 shadow-5">
                   <img alt='robots' src={`https://robohash.org/${item.id}200X200`} />
                   <h2>{item.name}</h2>
                   <h4>{item.username}</h4>

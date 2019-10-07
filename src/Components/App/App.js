@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-
-import './App.css';
 import robots from '../Robot/Robot';
 import Modal from '../Modal/Modal';
 import SearchBox from '../SearchBox/SearchBox';
 import CardList from '../CardList/CardList';
+import './App.css';
+
+
+
+
 
 
 class App extends Component {
@@ -67,7 +70,7 @@ class App extends Component {
 
       blah.map(item => {
         return (
-        <div key={item.id} className="tc bg-light-green dib br3 pa3 ma2 grow bw2 shadow-5">
+        <div key={item.id} className="tc bg-light-blue dib br3 pa3 ma2 grow bw2 shadow-5">
           <img alt='robots' src={`https://robohash.org/${item.id}200X200`} />
           <h2>{item.name}</h2>
           <h4>{item.username}</h4>
@@ -90,7 +93,7 @@ class App extends Component {
 
 
     return (
-      < div className='tc'>
+      < div className='tc' className='App'>
         <h1>RoboFriends</h1>
 
         <SearchBox searchChange={this.onSearchChange} />
