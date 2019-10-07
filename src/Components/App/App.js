@@ -10,20 +10,40 @@ import './App.css';
 
 
 
+
 class App extends Component {
 
   state = {
-    robots: robots,
+    robots: [],
     modal: false,
     searchfield: '',
   }
 
+  componentDidMount () {
+
+    this.getRobot();
+  }
+
   getRobot = (item) => {
 
-    let random = Math.floor(Math.random() * (this.state.robots.length * 10))
-    return (
-      `https://robohash.org/${random}200x200`
-    )
+    // let random = Math.floor(Math.random() * (this.state.robots.length * 10))
+    //  let robotArray = `https://robohash.org/${random}200x200`
+
+     fetch( 'https://jsonplaceholder.typicode.com/users')
+     .then(response => 
+       response.json())
+       .then(json =>  {
+        this.setState({
+          robots: json,
+        })
+     })
+
+
+     
+    
+    
+
+
   }
 
   handleCard = (item) => {
@@ -86,7 +106,7 @@ class App extends Component {
 
 
   render() {
-
+  
     let newRobots = this.state.robots.filter(robot => {
       return robot.name.toLowerCase().includes(this.state.searchfield.toLowerCase())
     })
