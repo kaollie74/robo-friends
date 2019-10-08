@@ -1,22 +1,38 @@
+
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import CardList from '../CardList/CardList';
+import ErrorBoundry from '../ErrorBoundry/ErrorBoundry';
 import Modal from '../Modal/Modal';
 import robots from '../Robot/Robot';
 import SearchBox from '../SearchBox/SearchBox';
 import Scroll from '../Scroll/Scroll';
 import './App.css';
+import setSearchField from '../../Redux/Reducers/action';
+import { Card } from 'semantic-ui-react';
 
+
+const mapStateToProps = state => {
+  return {
+    searchField: state.searchRobots.searchField
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSearchChange: (event) => dispatch(setSearchField(event.target.value))
+  }
+}
 
 class App extends Component {
 
   state = {
     robots: [],
-    modal: false,
-    searchfield: '',
+    // searchfield: '',
   }
 
   componentDidMount() {
     this.getRobot();
+
   }
 
   getRobot = (item) => {
@@ -61,27 +77,28 @@ class App extends Component {
     })
   }
 
-  onSearchChange = (event) => {
-
-
-
-    this.setState({
-      searchfield: event.target.value,
-
-    })
-
-
-  }
+  // onSearchChange = (event) => {
+  //   this.setState({
+  //     searchfield: event.target.value,
+  //   })
+  // }
 
   filteredRobots = () => {
 
-    const blah = this.state.robots.filter(robot => {
-      return robot.name.toLowerCase().includes(this.state.searchfield.toLowerCase())
+
+
+    // destructoring code to make cleaner. this is equivalent
+    // writing 'this.state.robots'.
+    const { robots} = this.state;
+    const { searchField, onSearchChange } = this.props;
+
+    const filteredRobots = robots.filter(item => {
+      return item.name.toLowerCase().includes(searchField.toLowerCase())
     })
 
     return (
 
-      blah.map(item => {
+      filteredRobots.map(item => {
         return (
           <div key={item.id} className="tc bg-light-blue dib br3 pa3 ma2 grow bw2 shadow-5">
             <img alt='robots' src={`https://robohash.org/${item.id}200X200`} />
@@ -100,88 +117,43 @@ class App extends Component {
 
   render() {
 
+    const { onSearchChange, searchField } = this.props;
+
+
     let newRobots = this.state.robots.filter(robot => {
-      return robot.name.toLowerCase().includes(this.state.searchfield.toLowerCase())
+      return robot.name.toLowerCase().includes(searchField.toLowerCase())
     })
 
 
     return (
-      < div className='tc' className='App'>
-        <h1 className='f1'>RoboFriends</h1>
+      <>
 
-        <SearchBox searchChange={this.onSearchChange} />
+        < div className='tc' className='App'>
+          <h1 className='f1'>RoboFriends</h1>
+
+          <SearchBox searchChange={onSearchChange} />
+          <div>
+            <ErrorBoundry>
+              <Scroll>
+                <CardList robots = {newRobots}/>
+              </Scroll>
+            </ErrorBoundry>
+          </div>
 
 
-        {/* <CardList  robots={newRobots}/>  */}
-
-        {/* <div className='tc'>
-          {this.state.searchField
-            ?
-            this.filteredRobots()
-            :
-            this.state.robots.map(item => {
-              return (
-                <div
-                  key={item.id}
-                  className=" tc bg-light-green dib br3 pa3 ma2 grow bw2 shadow-5"
-                  onClick={() => this.handleCard(item)}
-                // onClick = {this.openModal}
-                >
-                  <img alt="robots" src={this.getRobot()} />
-                  <h2>{item.name}</h2>
-                  <h4>{item.username}</h4>
-                  <h4>{item.email}</h4>
-                </div>
-              );
-
-            })
-          }
         </div>
-
-        <div>
-          <Modal
-            state={this.state}
-            handleCard={this.handleCard}
-            openModal={this.openModal}
-          />
-        </div> */}
-
-        {/* did this one a little differently. I imported the robot object array from Robot.js and then just mapped through it */}
-
-        {/* <div>
-          {this.state.searchfield ?
-            <div>
-              {this.filteredRobots()} 
-            </div>
-
-            :
-
-            robots.map(item => {
-              return (
-                <div key={item.id} className="tc bg-light-green dib br3 pa3 ma2 grow bw2 shadow-5">
-                  <img alt='robots' src={`https://robohash.org/${item.id}200X200`} />
-                  <h2>{item.name}</h2>
-                  <h4>{item.username}</h4>
-                  <h4>{item.email}</h4>
-
-                </div>
-              )
-            })
-          }
-        </div> */}
-        <div>
-          <Scroll>
-            {this.filteredRobots()}
-          </Scroll>
-        </div>
-
-
-      </div>
+      </>
     )
   }
 }
 
+// const mapStateToProps = (reduxStore) => ({
+//   reduxStore
+// })
 
 
 
-export default App;
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
