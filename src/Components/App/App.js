@@ -8,8 +8,8 @@ import robots from '../Robot/Robot';
 import SearchBox from '../SearchBox/SearchBox';
 import Scroll from '../Scroll/Scroll';
 import './App.css';
-import setSearchField from '../../Redux/Reducers/action';
-import { Card } from 'semantic-ui-react';
+import setSearchField from '../../Redux/Reducers/actionReducer';
+
 
 
 const mapStateToProps = state => {
@@ -17,6 +17,7 @@ const mapStateToProps = state => {
     searchField: state.searchRobots.searchField
   }
 }
+
 const mapDispatchToProps = (dispatch) => {
   return {
     onSearchChange: (event) => dispatch(setSearchField(event.target.value))

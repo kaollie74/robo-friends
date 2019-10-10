@@ -5,22 +5,24 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
+//import thunkMiddleware from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
 import 'tachyons';
 import './index.css';
 
 // import reducer
-import searchRobots from './Redux/Reducers/reducer';
+import rootReducer from './Redux/Reducers/index';
 
 
 
 
+const sagaMiddleware = createSagaMiddleware();
 const logger = createLogger();
 
 const storeInstance = createStore(
-  combineReducers({
-    searchRobots,
-  }),
-  applyMiddleware(logger)
+    rootReducer,
+ 
+  applyMiddleware( sagaMiddleware, logger)
 );
 
 
