@@ -7,7 +7,7 @@ import robotSaga from './RobotsSaga';
 
 
 export default function* rootSaga() {
-  yield([
-    robotSaga
-  ])
+  yield all ([
+    robotSaga()
+  ]);
 }

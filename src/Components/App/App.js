@@ -12,11 +12,13 @@ import setSearchField from '../../Redux/Reducers/actionReducer';
 
 
 
-const mapStateToProps = state => {
-  return {
-    searchField: state.searchRobots.searchField
-  }
-}
+// const mapStateToProps = (state, reduxStore) => {
+  
+//   return {
+//     searchField: state.searchRobots.searchField,
+//     reduxStore
+//   }
+// }
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -32,7 +34,9 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.getRobot();
+    //this.getRobot();
+
+    this.props.dispatch({ type: 'FETCH_ROBOTS'})
 
   }
 
@@ -148,13 +152,13 @@ class App extends Component {
   }
 }
 
-// const mapStateToProps = (reduxStore) => ({
-//   reduxStore
-// })
+const mapStateToProps = (reduxStore) => ({
+  reduxStore
+})
 
 
 
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);
