@@ -6,28 +6,28 @@ function* RobotRootSaga () {
 
 }
 
-function* fetchRobots () {
+function* fetchRobots (action) {
 
-  const fetch = axios.get('https://jsonplaceholder.typicode.com/users')
-  const response = fetch.json();
+  try {
 
-  yield put({ type: })
+  const response = axios.get('https://jsonplaceholder.typicode.com/users')
+    
+    yield put ({ type: 'SET_ROBOTS', payload: response.data})
+  }
+
+  catch(error) {
+    console.log(`Error catching data from API`, error);
+  }
 
 
-  fetch('https://jsonplaceholder.typicode.com/users')
-  .then(response => {
-    return response.json()
-  })
-  .then(users => {
-    this.setState({
-      robots: users
-    })
-  })
-  .catch(error => {
-    console.log(`Error fetching from api`, error);
-  })
+ 
 
-}
+  //yield put({ type: 'SET_ROBOTS', payload: response})
+
+
+
+
+ }
 
 
 
